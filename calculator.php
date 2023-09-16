@@ -16,15 +16,9 @@ function mulNum($x, $y){
 function divNum($x, $y){
     return $x/$y;
 }
-
-function checkRange($x){
-    if ($x >= 0 && $x <= 10) {
-        return true;
-    } else {
-        return false;
-    }
+function checkRange($num) {
+    return $num >= 0 && $num <= 10;
 }
-
 ?>
 
 <!doctype html>
@@ -41,7 +35,7 @@ function checkRange($x){
 </head>
 <body style="background-color: #eee">
     <div class="container border p-5 bg-light" style="margin-top: 9%; max-width: 500px">
-        <h1 class="h1 text-center pb-3">Calculator</h1>
+        <h1 class="h1 text-center pb-3">CALCULATOR</h1>
         <p class="small">Enter numbers from 1-10</p>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
             <div class="form-floating mb-3">
@@ -72,45 +66,29 @@ function checkRange($x){
             if (isset($_POST['num1']) && isset($_POST['num2'])) {
                 $x = $_POST['num1'];
                 $y = $_POST['num2'];
-                $status = (checkRange($x)) ? "in range" : "not in range";
-                $status = (checkRange($y)) ? "in range" : "not in range";
+                $statusX = (checkRange($x)) ? "in range" : "not in range";
+                $statusY = (checkRange($y)) ? "in range" : "not in range";
 
-                if (!empty($x) && !empty($y)) {
+                if (is_numeric($x) && is_numeric($y)) {
                     switch ($selectedAction) {
                         case "addNum":
                             echo "<div class='alert alert-success fade show' role='alert'> Sum of $x and $y is " . addNum($x, $y);
-                            if ($x > 0 && $x < 10) {
-                                echo "<br>$x is $status and $y is $status.</div>";
-                            } else {
-                                echo "<br>$x is $status and $y is $status.</div>";
-                            }
+                            echo "<br>$x is $statusX and $y is $statusY</div>";
                             unset($_SESSION['errorMsg']);
                             break;
                         case "subNum":
                             echo "<div class='alert alert-success fade show' role='alert'> Difference of $x and $y is " . subNum($x, $y);
-                            if ($x > 0 && $x < 10) {
-                                echo "<br>$x is $status and $y is $status.</div>";
-                            } else {
-                                echo "<br>$x is $status and $y is $status.</div>";
-                            }
+                            echo "<br>$x is $statusX and $y is $statusY</div>";
                             unset($_SESSION['errorMsg']);
                             break;
                         case "mulNum":
                             echo "<div class='alert alert-success fade show' role='alert'> Product of $x and $y is " . mulNum($x, $y);
-                            if ($x > 0 && $x < 10) {
-                                echo "<br>$x is $status and $y is $status.</div>";
-                            } else {
-                                echo "<br>$x is $status and $y is $status.</div>";
-                            }
+                            echo "<br>$x is $statusX and $y is $statusY</div>";
                             unset($_SESSION['errorMsg']);
                             break;
                         case "divNum":
                             echo "<div class='alert alert-success fade show' role='alert'> Quotient of $x and $y is " . divNum($x, $y);
-                            if ($x > 0 && $x < 10) {
-                                echo "<br>$x is $status and $y is $status.</div>";
-                            } else {
-                                echo "<br>$x is $status and $y is $status.</div>";
-                            }
+                            echo "<br>$x is $statusX and $y is $statusY</div>";
                             unset($_SESSION['errorMsg']);
                             break;
                         default:
